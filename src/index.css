@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Leaflet CSS loaded via index.html */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 225 25% 6%;
+    --foreground: 210 40% 93%;
+
+    --card: 225 20% 10%;
+    --card-foreground: 210 40% 93%;
+
+    --popover: 225 20% 10%;
+    --popover-foreground: 210 40% 93%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 225 25% 6%;
+
+    --secondary: 225 15% 16%;
+    --secondary-foreground: 210 40% 93%;
+
+    --muted: 225 15% 14%;
+    --muted-foreground: 215 15% 55%;
+
+    --accent: 270 70% 60%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 225 15% 18%;
+    --input: 225 15% 18%;
+    --ring: 217 91% 60%;
+
+    --radius: 0.75rem;
+
+    /* Crisis tokens */
+    --danger: 0 72% 55%;
+    --danger-foreground: 0 0% 100%;
+    --warning: 38 92% 55%;
+    --warning-foreground: 38 92% 10%;
+    --safe: 142 70% 45%;
+    --safe-foreground: 142 70% 10%;
+
+    --crisis-war: 270 70% 60%;
+    --crisis-disaster: 217 91% 60%;
+
+    --glass-bg: 225 20% 10% / 0.6;
+    --glass-border: 225 15% 25% / 0.4;
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(270 70% 60%));
+    --gradient-danger: linear-gradient(135deg, hsl(0 72% 55%), hsl(25 90% 55%));
+    --gradient-safe: linear-gradient(135deg, hsl(142 70% 45%), hsl(170 70% 50%));
+
+    --sidebar-background: 225 20% 8%;
+    --sidebar-foreground: 210 40% 93%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 225 15% 14%;
+    --sidebar-accent-foreground: 210 40% 93%;
+    --sidebar-border: 225 15% 18%;
+    --sidebar-ring: 217 91% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', sans-serif;
+  }
+}
+
+@layer components {
+  .glass {
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid hsl(var(--glass-border));
+    box-shadow: var(--glass-shadow);
+  }
+
+  .glass-card {
+    @apply glass rounded-xl p-4;
+  }
+
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 20px hsl(217 91% 60% / 0.3), 0 0 40px hsl(217 91% 60% / 0.1);
+  }
+
+  .glow-danger {
+    box-shadow: 0 0 20px hsl(0 72% 55% / 0.3), 0 0 40px hsl(0 72% 55% / 0.1);
+  }
+
+  .glow-safe {
+    box-shadow: 0 0 20px hsl(142 70% 45% / 0.3), 0 0 40px hsl(142 70% 45% / 0.1);
+  }
+
+  .pulse-dot {
+    @apply relative;
+  }
+  .pulse-dot::after {
+    content: '';
+    @apply absolute inset-0 rounded-full;
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .status-high {
+    @apply text-destructive;
+  }
+  .status-medium {
+    color: hsl(var(--warning));
+  }
+  .status-low {
+    color: hsl(var(--safe));
+  }
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 currentColor; opacity: 0.7; }
+  100% { box-shadow: 0 0 0 10px currentColor; opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* Leaflet overrides */
+.leaflet-container {
+  background: hsl(225 25% 6%) !important;
+  border-radius: var(--radius);
+}
+.leaflet-tile-pane {
+  filter: brightness(0.7) contrast(1.1) saturate(0.4) hue-rotate(180deg) invert(1);
+}
+.leaflet-control-zoom a {
+  background: hsl(225 20% 10% / 0.9) !important;
+  color: hsl(210 40% 93%) !important;
+  border-color: hsl(225 15% 18%) !important;
+}
+.leaflet-popup-content-wrapper {
+  background: hsl(225 20% 10% / 0.95) !important;
+  color: hsl(210 40% 93%) !important;
+  border-radius: var(--radius) !important;
+  border: 1px solid hsl(225 15% 25% / 0.4);
+  backdrop-filter: blur(16px);
+}
+.leaflet-popup-tip {
+  background: hsl(225 20% 10% / 0.95) !important;
+}
